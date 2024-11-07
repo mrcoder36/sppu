@@ -1,0 +1,42 @@
+pragma solidity ^0.8.0;
+
+contract Bank{
+    
+    address public accountholder;
+
+    uint256 balance = 0;
+    constructor(){
+        accountholder = msg.sender;
+    }
+    
+  Write a smart contract on a test network, for Bank account of a customer for following 
+operations:
+ Deposit money 
+ Withdraw Money
+ Show balance
+  
+   
+   
+    function withdraw() payable public {
+        require(msg.sender == accountholder,"You are not the account owner .");
+        require(balance > 0 ,"You Don't have enough balance.");
+        
+        payable (msg.sender).transfer(balance);
+        balance = 0;
+        
+    }
+
+    function deposit() public payable {
+        require(msg.sender == accountholder,"You are not the account owner .");
+        require(msg.value> 0, "Deposit amount should be greater than 0.");
+       
+        balance += msg.value;
+        }
+    function showBalance()public view returns(uint){
+        require(msg.sender == accountholder,"You are not the account owner .");
+        return balance;
+
+    }
+
+
+} 
